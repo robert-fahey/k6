@@ -2,6 +2,8 @@ package influxdb
 
 import (
 	"fmt"
+	"net/http"
+	"net/url"
 	"strings"
 
 	client "github.com/influxdata/influxdb1-client/v2"
@@ -18,12 +20,17 @@ func MakeClient(conf Config) (client.Client, error) {
 	if conf.Addr.String == "" {
 		conf.Addr = null.StringFrom("http://localhost:8086")
 	}
+	var proxyURL func(*http.Request) (*url.URL, error)
+	if conf.ProxyURL.String != "" {
+		proxyURL = http.ProxyURL(&url.URL{Host: conf.ProxyURL.String})
+	}
 	return client.NewHTTPClient(client.HTTPConfig{
 		Addr:               conf.Addr.String,
 		Username:           conf.Username.String,
 		Password:           conf.Password.String,
 		UserAgent:          "k6",
 		InsecureSkipVerify: conf.Insecure.Bool,
+		Proxy:              proxyURL,
 	})
 }
 
