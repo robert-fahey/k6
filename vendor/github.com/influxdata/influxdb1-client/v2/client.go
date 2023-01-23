@@ -117,10 +117,10 @@ func NewHTTPClient(conf HTTPConfig) (Client, error) {
 		password:  conf.Password,
 		useragent: conf.UserAgent,
 		httpClient: &http.Client{
-			Timeout:   conf.Timeout,
-			Transport: tr,
+			Timeout: conf.Timeout,
+			// Transport: tr,
 		},
-		transport: tr,
+		// transport: tr,
 	}, nil
 }
 

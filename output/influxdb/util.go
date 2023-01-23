@@ -21,8 +21,12 @@ func MakeClient(conf Config) (client.Client, error) {
 		conf.Addr = null.StringFrom("http://localhost:8086")
 	}
 	var proxyURL func(*http.Request) (*url.URL, error)
+
 	if conf.ProxyURL.String != "" {
 		proxyURL = http.ProxyURL(&url.URL{Host: conf.ProxyURL.String})
+		if proxyURL == nil {
+			return nil, fmt.Errorf("invalid proxy URL %s", conf.ProxyURL.String)
+		}
 	}
 	return client.NewHTTPClient(client.HTTPConfig{
 		Addr:               conf.Addr.String,
