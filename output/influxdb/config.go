@@ -23,7 +23,7 @@ type Config struct {
 	PayloadSize      null.Int           `json:"payloadSize,omitempty" envconfig:"K6_INFLUXDB_PAYLOAD_SIZE"`
 	PushInterval     types.NullDuration `json:"pushInterval,omitempty" envconfig:"K6_INFLUXDB_PUSH_INTERVAL"`
 	ConcurrentWrites null.Int           `json:"concurrentWrites,omitempty" envconfig:"K6_INFLUXDB_CONCURRENT_WRITES"`
-	ProxyURL         null.String        `json:"proxyURL,omitempty" envconfig:"HTTPS_PROXY"`
+	ProxyURL         null.String        `json:"proxyURL,omitempty" envconfig:"K6_INFLUXDB_PROXY_URL"`
 
 	// Samples.
 	DB           null.String `json:"db" envconfig:"K6_INFLUXDB_DB"`

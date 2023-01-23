@@ -27,4 +27,7 @@ check : ci-like-lint tests
 container:
 	docker build --rm --pull --no-cache -t robfahey/k6:prometheus-remote .
 
+push:
+	docker push robfahey/k6:latest
+
 .PHONY: build format ci-like-lint lint tests check container
