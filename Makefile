@@ -25,9 +25,14 @@ tests :
 check : ci-like-lint tests
 
 container:
-	docker build --rm --pull --no-cache -t robfahey/k6:latest .
+	docker build --rm --pull --no-cache -t robfahey/k6:test2 .
 
 push:
-	docker push robfahey/k6:latest
+	docker push robfahey/k6:test2
 
+test: 
+	go run . run single-request.js --out influxdb=$(proxy)
+	HTTPS_PROXY=0.0.0.1 go run . run single-request.js --out influxdb=$(proxy)
+	
 .PHONY: build format ci-like-lint lint tests check container
+
